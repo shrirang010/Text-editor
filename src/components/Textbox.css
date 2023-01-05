@@ -1,0 +1,12 @@
+@media(max-width:950px){
+    #btngroup{
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #btngroup button{
+        margin:10px 10px;
+        width:50%;
+
+    }
+}

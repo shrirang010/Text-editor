@@ -1,24 +1,43 @@
-import logo from './logo.svg';
 import './App.css';
+import Navbar from './components/Navbar.js';
+import Textbox from './components/Textbox';
+import { useState } from 'react';
+import { HashRouter ,Routes,Route } from 'react-router-dom';
+import About from './components/About';
+import Projectinfo from './components/Projectinfo';
 
 function App() {
+  document.head.title ="Text Editor"
+  const[mode,setmode] = useState("light")
+  const[headingcolor,setheadingcolor] =useState("black")
+
+  function toggledarkmode(){
+    if(mode === "light"){ 
+        console.log("Enabling dark mode")
+        setmode("dark")
+        setheadingcolor("info")
+        document.body.style.backgroundColor="black"
+      }
+    else{
+      setmode("light")
+      document.body.style.backgroundColor="white"
+      setheadingcolor("dark")
+    }  
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   <>
+   
+    <HashRouter>
+    <Navbar navtitle="Text Editor" mode={mode} toggle={toggledarkmode}/>
+      <Routes>    
+          <Route exact path='/' element ={<Textbox mode={mode} headingcolor={headingcolor}/>}/>
+          <Route exact path='/about' element={<About title ={document.head.title}/>}/>
+          <Route exact path='/projectinfo' element={<Projectinfo/>}/>
+      </Routes>
+
+    </HashRouter>
+
+    </>
   );
 }
 
